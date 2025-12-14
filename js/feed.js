@@ -1,6 +1,6 @@
 fetch('../data/posts.json')
   .then(res => res.json())
-  .then(async posts => {
+  .then(posts => {
     const feed = document.getElementById('feed');
     
     if (!posts || posts.length === 0) {
@@ -15,13 +15,8 @@ fetch('../data/posts.json')
     
     feed.innerHTML = '';
     
-    // Get decryption password
-    const password = sessionStorage.getItem('key');
-    
     // Show posts in reverse chronological order (newest first)
-    const reversedPosts = [...posts].reverse();
-    
-    for (const p of reversedPosts) {
+    [...posts].reverse().forEach(p => {
       const postDiv = document.createElement('div');
       postDiv.className = 'post';
       
@@ -33,39 +28,8 @@ fetch('../data/posts.json')
         day: 'numeric' 
       });
       
-      let imageUrl = p.image;
-      
-      // If image is encrypted, decrypt it
-      if (p.encrypted === true) {
-        if (!password) {
-          console.error('No password found for decryption');
-          imageUrl = 'https://via.placeholder.com/800x600/1a1a2e/ff5fa2?text=Decryption+Key+Missing';
-        } else {
-          try {
-            // Show loading state
-            postDiv.innerHTML = `
-              <div style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.02);">
-                <p style="color: #ff8fab;">🔓 Decrypting image...</p>
-              </div>
-            `;
-            feed.appendChild(postDiv);
-            
-            // Decrypt the image
-            imageUrl = await decryptImage(p.image, password);
-            
-            if (!imageUrl) {
-              imageUrl = 'https://via.placeholder.com/800x600/1a1a2e/ff5fa2?text=Decryption+Failed';
-            }
-          } catch (error) {
-            console.error('Decryption error:', error);
-            imageUrl = 'https://via.placeholder.com/800x600/1a1a2e/ff5fa2?text=Decryption+Error';
-          }
-        }
-      }
-      
-      // Create the post HTML
       postDiv.innerHTML = `
-        <img src="${imageUrl}" alt="${p.place}" onerror="this.src='https://via.placeholder.com/800x600/1a1a2e/ff5fa2?text=Image+Error'">
+        <img src="${p.image}" alt="${p.place}" onerror="this.src='https://via.placeholder.com/800x600/1a1a2e/ff5fa2?text=Image+Not+Found'">
         <div class="post-content">
           <div class="meta">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -84,11 +48,8 @@ fetch('../data/posts.json')
         </div>
       `;
       
-      // If we already added it during loading, just update, otherwise append
-      if (!postDiv.parentNode) {
-        feed.appendChild(postDiv);
-      }
-    }
+      feed.appendChild(postDiv);
+    });
   })
   .catch(err => {
     const feed = document.getElementById('feed');

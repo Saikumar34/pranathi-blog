@@ -18,8 +18,6 @@ async function login() {
   
   if (inputHash === PASSWORD_HASH) {
     sessionStorage.setItem('auth', 'true');
-    // Store password for image decryption (cleared on logout/tab close)
-    sessionStorage.setItem('key', input);
     window.location.href = 'feed/';
   } else {
     const inputElement = document.getElementById('password');
@@ -35,7 +33,6 @@ async function login() {
 
 function logout() {
   sessionStorage.removeItem('auth');
-  sessionStorage.removeItem('key'); // Clear encryption key
   window.location.href = '../';
 }
 

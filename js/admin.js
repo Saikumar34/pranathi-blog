@@ -1,6 +1,5 @@
 // Global variables
-let encryptedImageData = null;
-let imagePreviewUrl = null;
+let selectedImageFile = null;
 
 // Set today's date as default
 window.addEventListener('DOMContentLoaded', () => {
@@ -10,10 +9,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // Handle image file upload
-async function handleImageUpload() {
+function handleImageUpload() {
   const fileInput = document.getElementById('imageFile');
   const file = fileInput.files[0];
   const previewDiv = document.getElementById('imagePreview');
+  const filenameGroup = document.getElementById('imageFilenameGroup');
+  const filenameInput = document.getElementById('imageFilename');
   
   if (!file) {
     resetImagePreview();
@@ -28,26 +29,33 @@ async function handleImageUpload() {
     return;
   }
   
+  // Store file reference
+  selectedImageFile = file;
+  
+  // Show filename
+  filenameInput.value = file.name;
+  filenameGroup.style.display = 'block';
+  
   // Show loading
   previewDiv.innerHTML = `
     <div class="preview-placeholder">
-      <p style="color: #ff8fab;">Loading image...</p>
+      <p style="color: #ff8fab;">Loading preview...</p>
     </div>
   `;
   
   // Read and display preview
   const reader = new FileReader();
   reader.onload = (e) => {
-    imagePreviewUrl = e.target.result;
-    previewDiv.innerHTML = `<img src="${imagePreviewUrl}" alt="Preview">`;
+    previewDiv.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
   };
   reader.readAsDataURL(file);
 }
 
 function resetImagePreview() {
   const previewDiv = document.getElementById('imagePreview');
-  encryptedImageData = null;
-  imagePreviewUrl = null;
+  const filenameGroup = document.getElementById('imageFilenameGroup');
+  selectedImageFile = null;
+  filenameGroup.style.display = 'none';
   previewDiv.innerHTML = `
     <div class="preview-placeholder">
       <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -59,9 +67,8 @@ function resetImagePreview() {
   `;
 }
 
-async function savePost() {
+function savePost() {
   const fileInput = document.getElementById('imageFile');
-  const passwordInput = document.getElementById('encryptPassword');
   const placeInput = document.getElementById('place');
   const dateInput = document.getElementById('date');
   const captionInput = document.getElementById('caption');
@@ -72,11 +79,6 @@ async function savePost() {
   if (!fileInput.files || !fileInput.files[0]) {
     alert('⚠️ Please upload an image');
     fileInput.focus();
-    return;
-  }
-  if (!passwordInput.value) {
-    alert('⚠️ Please enter the encryption password');
-    passwordInput.focus();
     return;
   }
   if (!placeInput.value) {
@@ -95,47 +97,33 @@ async function savePost() {
     return;
   }
   
-  // Show encrypting message
-  output.textContent = '🔐 Encrypting image... Please wait...';
+  const file = fileInput.files[0];
+  const imagePath = `../images/${file.name}`;
+  
+  // Create the post object
+  const post = {
+    image: imagePath,
+    place: placeInput.value,
+    date: dateInput.value,
+    caption: captionInput.value
+  };
+  
+  // Display the JSON
+  output.textContent = JSON.stringify(post, null, 2);
   outputSection.style.display = 'block';
   
-  try {
-    // Encrypt the image
-    const file = fileInput.files[0];
-    const password = passwordInput.value;
-    
-    encryptedImageData = await encryptImage(file, password);
-    
-    // Create the post object with encrypted image
-    const post = {
-      image: encryptedImageData,
-      place: placeInput.value,
-      date: dateInput.value,
-      caption: captionInput.value,
-      encrypted: true  // Flag to indicate this is encrypted
-    };
-    
-    // Display the JSON
-    output.textContent = JSON.stringify(post, null, 2);
-    
-    // Scroll to output
-    outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
-    // Show success message
-    alert('✅ Image encrypted successfully! Copy the JSON below and add it to data/posts.json');
-    
-  } catch (error) {
-    console.error('Encryption error:', error);
-    alert('❌ Encryption failed! Please try again. Error: ' + error.message);
-    output.textContent = 'Encryption failed: ' + error.message;
-  }
+  // Scroll to output
+  outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  
+  // Show success message
+  alert(`✅ Post created!\n\n1. Upload "${file.name}" to GitHub /images folder\n2. Copy the JSON and add to data/posts.json`);
 }
 
 function copyToClipboard() {
   const output = document.getElementById('output');
   const text = output.textContent;
   
-  if (!text || text.includes('Encrypting') || text.includes('failed')) {
+  if (!text || text.trim() === '') {
     alert('⚠️ Nothing to copy yet! Please save a post first.');
     return;
   }
