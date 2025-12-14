@@ -26,6 +26,28 @@ async function deriveKey(password, salt) {
   );
 }
 
+// Convert Uint8Array to base64 (handles large arrays without stack overflow)
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000; // 32KB chunks
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, Math.min(i + chunkSize, bytes.length));
+    binary += String.fromCharCode.apply(null, chunk);
+  }
+  return btoa(binary);
+}
+
+// Convert base64 to Uint8Array
+function base64ToArrayBuffer(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
+}
+
 // Encrypt data with password
 async function encryptData(data, password) {
   const encoder = new TextEncoder();
@@ -45,15 +67,15 @@ async function encryptData(data, password) {
   combined.set(iv, salt.length);
   combined.set(new Uint8Array(encrypted), salt.length + iv.length);
   
-  // Convert to base64 for storage
-  return btoa(String.fromCharCode(...combined));
+  // Convert to base64 for storage (using chunked method)
+  return arrayBufferToBase64(combined);
 }
 
 // Decrypt data with password
 async function decryptData(encryptedBase64, password) {
   try {
-    // Decode from base64
-    const combined = Uint8Array.from(atob(encryptedBase64), c => c.charCodeAt(0));
+    // Decode from base64 (using safe method)
+    const combined = base64ToArrayBuffer(encryptedBase64);
     
     // Extract salt, iv, and encrypted data
     const salt = combined.slice(0, 16);
