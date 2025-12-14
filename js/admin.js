@@ -104,12 +104,10 @@ function savePost() {
   const placeInput = document.getElementById('place');
   const dateInput = document.getElementById('date');
   const captionInput = document.getElementById('caption');
-  const output = document.getElementById('output');
-  const outputSection = document.getElementById('outputSection');
   
   // Validate inputs
   if (!filenameInput.value) {
-    alert('⚠️ Please enter image filename');
+    alert('⚠️ Please select an image');
     filenameInput.focus();
     return;
   }
@@ -129,26 +127,8 @@ function savePost() {
     return;
   }
   
-  const filename = filenameInput.value.trim();
-  const imagePath = `../images/${filename}`;
-  
-  // Create the post object
-  const post = {
-    image: imagePath,
-    place: placeInput.value,
-    date: dateInput.value,
-    caption: captionInput.value
-  };
-  
-  // Display the JSON
-  output.textContent = JSON.stringify(post, null, 2);
-  outputSection.style.display = 'block';
-  
-  // Scroll to output
-  outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  
-  // Show success message
-  alert('✅ Post JSON generated! Copy it and add to data/posts.json on GitHub');
+  // Show under construction message
+  alert('🚧 Feature Under Development\n\nThe ability to save and upload posts is currently being built.\n\nPlease check back soon! 🚀');
 }
 
 function copyToClipboard() {
