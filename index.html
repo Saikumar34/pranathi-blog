@@ -1,14 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pranathi | Private Blog</title>
+  <title>Pranathi's Stories</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="dark">
-  <div class="login-box">
-    <h1>Welcome Back</h1>
-    <input type="password" id="password" placeholder="Enter password">
-    <button onclick="login()">Enter</button>
+  <div class="entrance">
+    <div class="entrance-content">
+      <div class="logo-circle">
+        <span class="initial">P</span>
+      </div>
+      <h1 class="entrance-title">Pranathi's Stories</h1>
+      <p class="entrance-subtitle">A private collection of moments & memories</p>
+      <div class="entrance-form">
+        <input type="password" id="password" placeholder="Enter password" class="password-input">
+        <button onclick="login()" class="enter-btn">
+          <span>Enter</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="entrance-footer">Made with ♡ for the memories we create</div>
+    </div>
   </div>
   <script src="js/auth.js"></script>
 </body>
