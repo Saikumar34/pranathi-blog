@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    // Immediate authentication check - runs before page loads
+    if (!sessionStorage.getItem('auth')) {
+      window.location.href = '/';
+    } else {
+      // Auth verified, show the page
+      document.documentElement.style.visibility = 'visible';
+    }
+  </script>
+  <style>
+    /* Hide content until authentication is verified */
+    html { visibility: hidden; }
+  </style>
+  <title>New Post | Pranathi's Stories</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="nav-left">
+        <button class="nav-btn" onclick="window.location.href='/feed/'">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </button>
+      </div>
+      <span class="nav-title">Create New Post</span>
+      <div class="nav-right"></div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <div class="admin-page">
+      <div class="admin-card">
+        <h2 class="admin-title">Share a Moment</h2>
+        <p class="admin-subtitle">Capture the memory, tell the story</p>
+        
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input id="image" type="text" placeholder="https://... or images/photo.jpg" class="form-input">
+          <p class="form-hint">Paste an image URL or upload to /images folder</p>
+        </div>
+        
+        <div class="image-preview" id="imagePreview">
+          <div class="preview-placeholder">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <path d="M40 38V10a2 2 0 00-2-2H10a2 2 0 00-2 2v28a2 2 0 002 2h28a2 2 0 002-2z" stroke="currentColor" stroke-width="2"/>
+              <path d="M16 20a2 2 0 100-4 2 2 0 000 4zM8 38l12-12 4 4 8-8 8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Image preview will appear here</p>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="place">Location</label>
+            <input id="place" type="text" placeholder="Dublin, Ireland" class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input id="date" type="date" class="form-input">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="caption">Caption</label>
+          <textarea id="caption" placeholder="Write something beautiful..." class="form-textarea" rows="4"></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button onclick="savePost()" class="btn-primary">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M16.5 9.5v7a1 1 0 01-1 1h-11a1 1 0 01-1-1v-11a1 1 0 011-1h7M14.5 3.5l2 2M8.5 11.5l6-6 2 2-6 6H8.5v-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Save Post
+          </button>
+        </div>
+        
+        <div class="output-section" id="outputSection" style="display: none;">
+          <h3>JSON Output</h3>
+          <p class="output-instruction">Copy this and add it to <code>data/posts.json</code></p>
+          <pre id="output" class="json-output"></pre>
+          <button onclick="copyToClipboard()" class="btn-secondary">Copy to Clipboard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
