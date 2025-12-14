@@ -4,7 +4,7 @@
   <script>
     // Immediate authentication check - runs before page loads
     if (!sessionStorage.getItem('auth')) {
-      window.location.href = '/';
+      window.location.href = '../';
     } else {
       // Auth verified, show the page
       document.documentElement.style.visibility = 'visible';
@@ -17,7 +17,7 @@
   <title>Pranathi's Stories</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
         <span class="nav-title">Pranathi's Stories</span>
       </div>
       <div class="nav-right">
-        <button class="nav-btn" onclick="window.location.href='/admin/'">
+        <button class="nav-btn" onclick="window.location.href='../admin/'">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
@@ -56,7 +56,7 @@
     </div>
   </div>
   
-  <script src="/js/auth.js"></script>
-  <script src="/js/feed.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/feed.js"></script>
 </body>
 </html>
