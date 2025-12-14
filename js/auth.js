@@ -1,8 +1,22 @@
-const PASSWORD = "pranathi@love";
+// SHA-256 hash of the password - actual password is never stored in code!
+// This is the hash of "pranathi@love"
+const PASSWORD_HASH = "82db84d60b386fb95e79bdb22d16d8399a86afd5e4d18c380329d224633c1f14";
 
-function login() {
+// Function to hash password using SHA-256
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+async function login() {
   const input = document.getElementById('password').value;
-  if (input === PASSWORD) {
+  const inputHash = await hashPassword(input);
+  
+  if (inputHash === PASSWORD_HASH) {
     sessionStorage.setItem('auth', 'true');
     window.location.href = 'feed/';
   } else {
