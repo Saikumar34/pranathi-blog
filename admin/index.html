@@ -45,9 +45,15 @@
         <p class="admin-subtitle">Capture the memory, tell the story</p>
         
         <div class="form-group">
-          <label for="image">Image URL</label>
-          <input id="image" type="text" placeholder="https://... or images/photo.jpg" class="form-input">
-          <p class="form-hint">Paste an image URL or upload to /images folder</p>
+          <label for="imageFile">Upload Image</label>
+          <input id="imageFile" type="file" accept="image/*" class="form-input" onchange="handleImageUpload()">
+          <p class="form-hint">Select an image file - it will be encrypted automatically</p>
+        </div>
+        
+        <div class="form-group">
+          <label for="encryptPassword">Encryption Password</label>
+          <input id="encryptPassword" type="password" placeholder="Enter your blog password" class="form-input">
+          <p class="form-hint">⚠️ Must be the same password you use to login!</p>
         </div>
         
         <div class="image-preview" id="imagePreview">
@@ -97,6 +103,7 @@
   </div>
   
   <script src="../js/auth.js"></script>
+  <script src="../js/crypto.js"></script>
   <script src="../js/admin.js"></script>
 </body>
 </html>
