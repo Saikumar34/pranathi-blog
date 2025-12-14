@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    // Immediate authentication check - runs before page loads
+    if (!sessionStorage.getItem('auth')) {
+      window.location.href = '/';
+    } else {
+      // Auth verified, show the page
+      document.documentElement.style.visibility = 'visible';
+    }
+  </script>
+  <style>
+    /* Hide content until authentication is verified */
+    html { visibility: hidden; }
+  </style>
+  <title>Pranathi's Stories</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="dark">
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="nav-left">
+        <div class="logo-small">P</div>
+        <span class="nav-title">Pranathi's Stories</span>
+      </div>
+      <div class="nav-right">
+        <button class="nav-btn" onclick="window.location.href='/admin/'">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          New Post
+        </button>
+        <button class="nav-btn logout-btn" onclick="logout()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7 3H4a2 2 0 00-2 2v10a2 2 0 002 2h3M14 5l4 4.5M18 9.5L14 14M18 9.5H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <header class="blog-header">
+      <h1 class="blog-title">Welcome to My World</h1>
+      <p class="blog-description">Every moment captured, every memory cherished</p>
+    </header>
+    
+    <div class="feed" id="feed">
+      <div class="loading">Loading beautiful moments...</div>
+    </div>
+  </div>
+  
+  <script src="/js/auth.js"></script>
+  <script src="/js/feed.js"></script>
+</body>
+</html>
