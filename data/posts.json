@@ -1,7 +1,7 @@
 [
   {
     "image": "../images/20251003_205113.jpg",
-    "place": "My Special Place",
+    "place": "Tank Bund",
     "date": "2025-10-03",
     "caption": "Captured this beautiful moment 💖 Every picture tells a story, and this one is close to my heart."
   },
@@ -10,5 +10,11 @@
     "place": "South Korea",
     "date": "2025-12-12",
     "caption": "I hate him because I only like my fiancé."
+  },
+  {
+    "image": "../images/20250831_135507.jpg",
+    "place": "Ireland",
+    "date": "2025-08-31",
+    "caption": "My Hero, Dil ka dhadkan."
   }
 ]
