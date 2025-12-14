@@ -1,41 +1,31 @@
-// GitHub repository details
-const GITHUB_REPO = 'Saikumar34/pranathi-blog';
-const GITHUB_API = `https://api.github.com/repos/${GITHUB_REPO}/contents/images`;
-
 // Set today's date as default and load images
 window.addEventListener('DOMContentLoaded', () => {
   const dateInput = document.getElementById('date');
   const today = new Date().toISOString().split('T')[0];
   dateInput.value = today;
   
-  // Load images from GitHub
-  loadImagesFromGitHub();
+  // Load images list
+  loadImagesList();
 });
 
-// Fetch images from GitHub repository
-async function loadImagesFromGitHub() {
+// Load images from local list
+async function loadImagesList() {
   const select = document.getElementById('imageFilename');
   
   try {
-    const response = await fetch(GITHUB_API);
+    const response = await fetch('../data/images-list.json');
     
     if (!response.ok) {
-      throw new Error('Failed to fetch images');
+      throw new Error('Failed to load images list');
     }
     
-    const files = await response.json();
-    
-    // Filter only image files
-    const imageFiles = files.filter(file => 
-      file.type === 'file' && 
-      /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(file.name)
-    );
+    const imageFiles = await response.json();
     
     // Clear loading option
     select.innerHTML = '';
     
     if (imageFiles.length === 0) {
-      select.innerHTML = '<option value="">No images found - upload some to GitHub!</option>';
+      select.innerHTML = '<option value="">No images in list - add to data/images-list.json</option>';
       return;
     }
     
@@ -45,18 +35,16 @@ async function loadImagesFromGitHub() {
     defaultOption.textContent = '-- Select an image --';
     select.appendChild(defaultOption);
     
-    // Add image options (sorted by name)
-    imageFiles
-      .sort((a, b) => b.name.localeCompare(a.name)) // Newest first
-      .forEach(file => {
-        const option = document.createElement('option');
-        option.value = file.name;
-        option.textContent = file.name;
-        select.appendChild(option);
-      });
+    // Add image options (reverse order - newest first)
+    imageFiles.reverse().forEach(filename => {
+      const option = document.createElement('option');
+      option.value = filename;
+      option.textContent = filename;
+      select.appendChild(option);
+    });
     
   } catch (error) {
-    console.error('Error loading images:', error);
+    console.error('Error loading images list:', error);
     select.innerHTML = '<option value="">Error loading images - check console</option>';
   }
 }
