@@ -44,12 +44,18 @@
         <h2 class="admin-title">Share a Moment</h2>
         <p class="admin-subtitle">Capture the memory, tell the story</p>
         
+        <div style="background: rgba(255, 165, 0, 0.1); border: 1px solid rgba(255, 165, 0, 0.3); border-radius: 10px; padding: 15px; margin-bottom: 25px;">
+          <p style="margin: 0; color: #ffa500; font-size: 14px;">
+            🚧 <strong>Under Development:</strong> Post upload feature is currently being built. Database integration coming soon!
+          </p>
+        </div>
+        
         <div class="form-group">
           <label for="imageFilename">Select Image</label>
           <select id="imageFilename" class="form-input" onchange="previewImage()">
             <option value="">Loading images from GitHub...</option>
           </select>
-          <p class="form-hint">📌 Select from images you've uploaded to GitHub, or <a href="https://github.com/Saikumar34/pranathi-blog/tree/main/images" target="_blank" style="color: #ff5fa2;">upload a new one</a></p>
+          <p class="form-hint">📌 Select an image from the available options</p>
         </div>
         
         <div class="image-preview" id="imagePreview">
@@ -88,6 +94,7 @@
           </button>
         </div>
         
+        <!-- Output section hidden - feature under development -->
         <div class="output-section" id="outputSection" style="display: none;">
           <h3>JSON Output</h3>
           <p class="output-instruction">Copy this JSON and add to <code>data/posts.json</code></p>
