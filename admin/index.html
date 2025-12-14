@@ -47,13 +47,13 @@
         <div class="form-group">
           <label for="imageFile">Upload Image</label>
           <input id="imageFile" type="file" accept="image/*" class="form-input" onchange="handleImageUpload()">
-          <p class="form-hint">Select an image file - it will be encrypted automatically</p>
+          <p class="form-hint">📤 Upload your image, then add it to GitHub /images folder</p>
         </div>
         
-        <div class="form-group">
-          <label for="encryptPassword">Encryption Password</label>
-          <input id="encryptPassword" type="password" placeholder="Enter your blog password" class="form-input">
-          <p class="form-hint">⚠️ Must be the same password you use to login!</p>
+        <div class="form-group" id="imageFilenameGroup" style="display: none;">
+          <label for="imageFilename">Image Filename (in /images folder)</label>
+          <input id="imageFilename" type="text" class="form-input" readonly>
+          <p class="form-hint">✅ Upload this file to GitHub: <code>images/[filename]</code></p>
         </div>
         
         <div class="image-preview" id="imagePreview">
@@ -94,7 +94,8 @@
         
         <div class="output-section" id="outputSection" style="display: none;">
           <h3>JSON Output</h3>
-          <p class="output-instruction">Copy this and add it to <code>data/posts.json</code></p>
+          <p class="output-instruction">1️⃣ Upload image to GitHub: <code>images/[filename]</code><br>
+          2️⃣ Copy this JSON and add to <code>data/posts.json</code></p>
           <pre id="output" class="json-output"></pre>
           <button onclick="copyToClipboard()" class="btn-secondary">Copy to Clipboard</button>
         </div>
@@ -103,7 +104,6 @@
   </div>
   
   <script src="../js/auth.js"></script>
-  <script src="../js/crypto.js"></script>
   <script src="../js/admin.js"></script>
 </body>
 </html>
