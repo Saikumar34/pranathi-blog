@@ -45,15 +45,11 @@
         <p class="admin-subtitle">Capture the memory, tell the story</p>
         
         <div class="form-group">
-          <label for="imageFile">Upload Image</label>
-          <input id="imageFile" type="file" accept="image/*" class="form-input" onchange="handleImageUpload()">
-          <p class="form-hint">📤 Upload your image, then add it to GitHub /images folder</p>
-        </div>
-        
-        <div class="form-group" id="imageFilenameGroup" style="display: none;">
-          <label for="imageFilename">Image Filename (in /images folder)</label>
-          <input id="imageFilename" type="text" class="form-input" readonly>
-          <p class="form-hint">✅ Upload this file to GitHub: <code>images/[filename]</code></p>
+          <label for="imageFilename">Select Image</label>
+          <select id="imageFilename" class="form-input" onchange="previewImage()">
+            <option value="">Loading images from GitHub...</option>
+          </select>
+          <p class="form-hint">📌 Select from images you've uploaded to GitHub, or <a href="https://github.com/Saikumar34/pranathi-blog/tree/main/images" target="_blank" style="color: #ff5fa2;">upload a new one</a></p>
         </div>
         
         <div class="image-preview" id="imagePreview">
@@ -94,8 +90,7 @@
         
         <div class="output-section" id="outputSection" style="display: none;">
           <h3>JSON Output</h3>
-          <p class="output-instruction">1️⃣ Upload image to GitHub: <code>images/[filename]</code><br>
-          2️⃣ Copy this JSON and add to <code>data/posts.json</code></p>
+          <p class="output-instruction">Copy this JSON and add to <code>data/posts.json</code></p>
           <pre id="output" class="json-output"></pre>
           <button onclick="copyToClipboard()" class="btn-secondary">Copy to Clipboard</button>
         </div>
