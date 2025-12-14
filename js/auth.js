@@ -4,7 +4,7 @@ function login() {
   const input = document.getElementById('password').value;
   if (input === PASSWORD) {
     sessionStorage.setItem('auth', 'true');
-    window.location.href = '/feed/';
+    window.location.href = 'feed/';
   } else {
     const inputElement = document.getElementById('password');
     inputElement.style.borderColor = '#ff4444';
@@ -19,7 +19,7 @@ function login() {
 
 function logout() {
   sessionStorage.removeItem('auth');
-  window.location.href = '/';
+  window.location.href = '../';
 }
 
 // Handle Enter key on password input
@@ -33,5 +33,5 @@ if (document.getElementById('password')) {
 
 // Protect feed and admin pages
 if ((window.location.pathname.includes('/feed') || window.location.pathname.includes('/admin')) && !sessionStorage.getItem('auth')) {
-  window.location.href = '/';
+  window.location.href = '../';
 }

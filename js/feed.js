@@ -1,4 +1,4 @@
-fetch('/data/posts.json')
+fetch('../data/posts.json')
   .then(res => res.json())
   .then(posts => {
     const feed = document.getElementById('feed');
