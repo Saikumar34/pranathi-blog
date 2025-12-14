@@ -1,5 +1,4 @@
 // SHA-256 hash of the password - actual password is never stored in code!
-// This is the hash of "pranathi@love"
 const PASSWORD_HASH = "82db84d60b386fb95e79bdb22d16d8399a86afd5e4d18c380329d224633c1f14";
 
 // Function to hash password using SHA-256
