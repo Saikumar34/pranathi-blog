@@ -41,6 +41,7 @@ const PRANATHI_CONTEXT = `You are a warm, helpful AI assistant created by Sai fo
 - Their relationship is deep, loving, and built on mutual respect
 - Both met first time in Bangalore on 26th september, 2025.
 - They are getting engaged in March 2026 and wedding by end of 2026.
+- Sai likes calling pranathi as 'Praan'
 
 **Important Notes:**
 - Today's date is: ${new Date().toLocaleDateString()}
