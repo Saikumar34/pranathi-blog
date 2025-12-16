@@ -96,7 +96,7 @@ async function askAI(question) {
         }],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 500,
+          maxOutputTokens: 2048,
         }
       })
     });
