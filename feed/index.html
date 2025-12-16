@@ -46,6 +46,55 @@
   </nav>
   
   <div class="container">
+    <!-- AI Chat Section -->
+    <div class="chat-container">
+      <div class="chat-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Ask me anything about Pranathi...</span>
+      </div>
+      
+      <form id="chatForm" class="chat-form">
+        <input 
+          type="text" 
+          id="chatInput" 
+          placeholder="What would you like to know?" 
+          class="chat-input"
+          autocomplete="off"
+        >
+        <button type="submit" class="chat-submit">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M18 2L9 11M18 2l-6 16-3-7-7-3 16-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+      
+      <!-- Loading State -->
+      <div id="chatLoading" class="chat-loading" style="display: none;">
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <p>Thinking...</p>
+      </div>
+      
+      <!-- Error State -->
+      <div id="chatError" class="chat-error" style="display: none;">
+        <p>⚠️ <span id="errorMessage"></span></p>
+      </div>
+      
+      <!-- Response -->
+      <div id="chatResponse" class="chat-response" style="display: none;">
+        <div class="chat-question">
+          <strong>Q:</strong> <span id="userQuestion"></span>
+        </div>
+        <div class="chat-answer">
+          <strong>🤖:</strong> <span id="aiAnswer"></span>
+        </div>
+      </div>
+    </div>
+    
     <header class="blog-header">
       <h1 class="blog-title">Welcome to My World</h1>
       <p class="blog-description">Every moment captured, every memory cherished</p>
@@ -58,5 +107,6 @@
   
   <script src="../js/auth.js"></script>
   <script src="../js/feed.js"></script>
+  <script src="../js/chat.js"></script>
 </body>
 </html>
