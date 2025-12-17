@@ -2,7 +2,7 @@
 // The API key is encrypted and can only be decrypted by someone who logged in
 
 // Encrypted Gemini API Key (encrypted with blog password: sai<3pranathi)
-const ENCRYPTED_API_KEY = "MigTXWAJNgUHCjVfPhIiAFdkOx85W1c4LlxBWAdJYSUgCEMFGDok";
+const ENCRYPTED_API_KEY = "MigTXWAJMyxXMi0yPzcCI3RsQRUTNyAyDVpKNj9QRzsqFCBRDCRd";
 
 // Simple decryption using blog password
 function decryptApiKey(password) {
